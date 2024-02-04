@@ -6,11 +6,11 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	"github.com/navneetshukl/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
 	"github.com/joho/godotenv"
+	"github.com/navneetshukl/models"
 )
 
 // ! ConnectToDatabase will connect to database
@@ -31,11 +31,21 @@ func ConnectToDatabase() (*gorm.DB, error) {
 }
 
 // ! MigrateDatabase will migrate the database
+// func MigrateDatabase() {
+// 	DB, err := ConnectToDatabase()
+// 	if err != nil {
+// 		log.Fatal("There is error connecting to database ", err)
+// 		return
+// 	}
+// 	DB.AutoMigrate(&models.User{}, &models.Admin{})
+// }
+
 func MigrateDatabase() {
 	DB, err := ConnectToDatabase()
 	if err != nil {
 		log.Fatal("There is error connecting to database ", err)
 		return
 	}
+
 	DB.AutoMigrate(&models.User{}, &models.Admin{})
 }
