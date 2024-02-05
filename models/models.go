@@ -10,6 +10,7 @@ type User struct {
 	Password string `gorm:"password"`
 }
 
+
 //! Admin models will store admin data
 type Admin struct {
 	gorm.Model
