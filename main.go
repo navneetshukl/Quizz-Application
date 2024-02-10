@@ -12,10 +12,7 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("templates/*")
-	
-	router.GET("/", auth.RegisterForm)
-	router.POST("/", auth.Register)
+	router.POST("/api/register", auth.Register)
 
 	router.Run()
 

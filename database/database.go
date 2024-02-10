@@ -30,15 +30,6 @@ func ConnectToDatabase() (*gorm.DB, error) {
 	return DB, nil
 }
 
-// ! MigrateDatabase will migrate the database
-// func MigrateDatabase() {
-// 	DB, err := ConnectToDatabase()
-// 	if err != nil {
-// 		log.Fatal("There is error connecting to database ", err)
-// 		return
-// 	}
-// 	DB.AutoMigrate(&models.User{}, &models.Admin{})
-// }
 
 func MigrateDatabase() {
 	DB, err := ConnectToDatabase()

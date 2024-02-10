@@ -10,13 +10,24 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//!  Register function will register the user
+// !  Register function will register the user
 func Register(c *gin.Context) {
-	name := c.PostForm("name")
-	email := c.PostForm("email")
-	password := c.PostForm("password")
+	var requestBody struct {
+		Name     string `json:"name"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
 
-	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	//? Bind the request body to the struct
+	if err := c.ShouldBindJSON(&requestBody); err != nil {
+		log.Println("Error in reading request body:", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Invalid request format",
+		})
+		return
+	}
+
+	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(requestBody.Password), bcrypt.DefaultCost)
 
 	if err != nil {
 		log.Println("Error in encrypting the password in Register function ", err)
@@ -26,8 +37,8 @@ func Register(c *gin.Context) {
 		return
 	}
 	user := models.User{
-		Name:     name,
-		Email:    email,
+		Name:     requestBody.Email,
+		Email:    requestBody.Email,
 		Password: string(encryptedPassword),
 	}
 
@@ -56,9 +67,4 @@ func Register(c *gin.Context) {
 		"message": "User Registered Successfully",
 	})
 
-}
-
-//! RegisterForm function will render the register form
-func RegisterForm(c *gin.Context) {
-	c.HTML(http.StatusOK, "register.tmpl", nil)
 }
