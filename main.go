@@ -13,6 +13,8 @@ func main() {
 	router := gin.Default()
 
 	router.POST("/api/register", auth.Register)
+	router.POST("/api/login", auth.Login)
+	router.GET("/api/logout", auth.Logout)
 
 	router.Run()
 
