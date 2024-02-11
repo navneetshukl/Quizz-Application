@@ -10,11 +10,33 @@ type User struct {
 	Password string `gorm:"password"`
 }
 
+//! Questions struct will store the question and its options
+type Questions struct {
+	Category      string `json:"category"`
+	Question      string `json:"question"`
+	Option1       string `json:"option1"`
+	Option2       string `json:"option2"`
+	Option3       string `json:"option3"`
+	Option4       string `json:"option4"`
+	CorrectOption string `json:"correct_option"`
+}
 
-//! Admin models will store admin data
-type Admin struct {
-	gorm.Model
-	Name     string `gorm:"name"`
-	Email    string `gorm:"unique;email"`
-	Password string `gorm:"password"`
+//! Golang struct is table which will store all golang questions
+type Golang struct {
+	Question      string `json:"question"`
+	Option1       string `json:"option1"`
+	Option2       string `json:"option2"`
+	Option3       string `json:"option3"`
+	Option4       string `json:"option4"`
+	CorrectOption string `json:"correct_option"`
+}
+
+//! Python struct is table which will store all python questions
+type Python struct {
+	Question      string `json:"question"`
+	Option1       string `json:"option1"`
+	Option2       string `json:"option2"`
+	Option3       string `json:"option3"`
+	Option4       string `json:"option4"`
+	CorrectOption string `json:"correct_option"`
 }

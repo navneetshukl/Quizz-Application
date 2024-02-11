@@ -30,7 +30,6 @@ func ConnectToDatabase() (*gorm.DB, error) {
 	return DB, nil
 }
 
-
 func MigrateDatabase() {
 	DB, err := ConnectToDatabase()
 	if err != nil {
@@ -38,5 +37,5 @@ func MigrateDatabase() {
 		return
 	}
 
-	DB.AutoMigrate(&models.User{}, &models.Admin{})
+	DB.AutoMigrate(&models.User{}, &models.Golang{}, &models.Python{})
 }
