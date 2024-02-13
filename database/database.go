@@ -37,5 +37,5 @@ func MigrateDatabase() {
 		return
 	}
 
-	DB.AutoMigrate(&models.User{}, &models.Golang{}, &models.Python{})
+	DB.AutoMigrate(&models.User{}, &models.Golang{}, &models.Python{}, &models.Javascript{})
 }

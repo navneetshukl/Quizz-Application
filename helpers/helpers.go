@@ -20,6 +20,13 @@ func StoreQuestion(data models.Questions) error {
 			log.Println("Error in storing the golang question : ", err)
 			return err
 		}
+	} else if data.Category == "Javascript" {
+
+		err := Javascript(data)
+		if err != nil {
+			log.Println("Error in storing the javascript question : ", err)
+			return err
+		}
 	}
 
 	return nil
