@@ -41,7 +41,7 @@ func AddQuestionRoute(c *gin.Context) {
 func GetQuestionsRoute(c *gin.Context) {
 	cat := c.Param("cat")
 
-	if cat == "Golang" {
+	if cat == "golang" {
 		err, data := helpers.GolangQuestions()
 
 		if err != nil {
@@ -51,7 +51,7 @@ func GetQuestionsRoute(c *gin.Context) {
 			})
 		}
 		c.JSON(http.StatusOK, data)
-	} else if cat == "Python" {
+	} else if cat == "python" {
 
 		err, data := helpers.PythonQuestions()
 		if err != nil {
@@ -62,7 +62,7 @@ func GetQuestionsRoute(c *gin.Context) {
 		}
 		c.JSON(http.StatusOK, data)
 
-	} else if cat == "Javascript" {
+	} else if cat == "javascript" {
 		err, data := helpers.JavascriptQuestions()
 		if err != nil {
 			log.Println("Error in getting the javascript question : ", err)

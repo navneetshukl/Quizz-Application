@@ -30,7 +30,7 @@ func main() {
 
 	router.POST("/add/question", middleware.Authenticate, routes.AddQuestionRoute)
 
-	router.GET("/test/:cat", middleware.Authenticate, routes.GetQuestionsRoute)
+	router.GET("/quizz/:cat", middleware.Authenticate, routes.GetQuestionsRoute)
 
 	router.Run()
 
