@@ -36,3 +36,41 @@ func AddQuestionRoute(c *gin.Context) {
 	})
 
 }
+
+//! GetQuestionsRoute function will get the questions from database
+func GetQuestionsRoute(c *gin.Context) {
+	cat := c.Param("cat")
+
+	if cat == "Golang" {
+		err, data := helpers.GolangQuestions()
+
+		if err != nil {
+			log.Println("Error in getting the golang question : ", err)
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Error in getting the golang question",
+			})
+		}
+		c.JSON(http.StatusOK, data)
+	} else if cat == "Python" {
+
+		err, data := helpers.PythonQuestions()
+		if err != nil {
+			log.Println("Error in getting the python question : ", err)
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Error in getting the python question",
+			})
+		}
+		c.JSON(http.StatusOK, data)
+
+	} else if cat == "Javascript" {
+		err, data := helpers.JavascriptQuestions()
+		if err != nil {
+			log.Println("Error in getting the javascript question : ", err)
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Error in getting the javascript question",
+			})
+		}
+		c.JSON(http.StatusOK, data)
+
+	}
+}

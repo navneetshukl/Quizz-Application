@@ -16,18 +16,21 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	// Apply CORS middleware
+	
+	//? Apply CORS middleware
 
 	config := cors.DefaultConfig()
 	config.AllowCredentials = true
 	config.AllowOrigins = []string{"http://localhost:5173"}
 	router.Use(cors.New(config))
-	
+
 	router.POST("/api/register", auth.Register)
 	router.POST("/api/login", auth.Login)
 	router.GET("/api/logout", middleware.Authenticate, auth.Logout)
 
 	router.POST("/add/question", middleware.Authenticate, routes.AddQuestionRoute)
+
+	router.GET("/test/:cat", middleware.Authenticate, routes.GetQuestionsRoute)
 
 	router.Run()
 
