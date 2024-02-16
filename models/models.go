@@ -60,3 +60,13 @@ type Mail struct {
 	Total   int    `json:"total"`
 	Maximum int    `json:"maximum"`
 }
+
+//! Score models will store the test detail of user to database
+type Score struct {
+	gorm.Model
+
+	Email   string `json:"email"`
+	Total   int    `json:"total"`
+	Subject string `json:"subject"`
+	Maximum int `json:"maximum"`
+}

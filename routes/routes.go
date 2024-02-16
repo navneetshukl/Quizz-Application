@@ -114,6 +114,8 @@ func SendMailRoute(c *gin.Context) {
 
 	fmt.Println("Name is ", name)
 
+	helpers.SaveScore(email.(string), data)
+
 	err = services.SendMail(email.(string), name, data)
 	if err != nil {
 		log.Println("Error in sending the body ", err)
