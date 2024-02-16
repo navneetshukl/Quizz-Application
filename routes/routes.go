@@ -1,12 +1,14 @@
 package routes
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/navneetshukl/helpers"
 	"github.com/navneetshukl/models"
+	"github.com/navneetshukl/services"
 )
 
 // ! AddQuestionRoute function will add the question
@@ -37,7 +39,7 @@ func AddQuestionRoute(c *gin.Context) {
 
 }
 
-//! GetQuestionsRoute function will get the questions from database
+// ! GetQuestionsRoute function will get the questions from database
 func GetQuestionsRoute(c *gin.Context) {
 	cat := c.Param("cat")
 
@@ -73,4 +75,55 @@ func GetQuestionsRoute(c *gin.Context) {
 		c.JSON(http.StatusOK, data)
 
 	}
+}
+
+// ! SendMailRoute function will send the mail
+func SendMailRoute(c *gin.Context) {
+
+	email, ok := c.Get("user")
+
+	if !ok {
+		log.Println("Unable to get the email ")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Some error occured.Please try after again",
+		})
+
+		return
+	}
+
+	var data models.Mail
+
+	err := c.ShouldBindJSON(&data)
+
+	if err != nil {
+		log.Println("Error in reading the body of the request for score of test ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Error in reading the body",
+		})
+		return
+	}
+
+	name, err := helpers.Getname(email.(string))
+	if err != nil {
+		log.Println("Error in getting the name ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Some error occured.Please try again",
+		})
+		return
+	}
+
+	fmt.Println("Name is ", name)
+
+	err = services.SendMail(email.(string), name, data)
+	if err != nil {
+		log.Println("Error in sending the body ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Some error occured.Please retry again",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": "Mail sent successfully",
+	})
+
 }

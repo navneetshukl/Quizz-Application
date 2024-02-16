@@ -53,3 +53,10 @@ type Javascript struct {
 	Option4       string `json:"option4"`
 	CorrectOption string `json:"correct_option"`
 }
+
+//! Mail model will store the marks of the particular subject
+type Mail struct {
+	Subject string `json:"subject"`
+	Total   int    `json:"total"`
+	Maximum int    `json:"maximum"`
+}

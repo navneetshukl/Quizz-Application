@@ -37,7 +37,7 @@ func Register(c *gin.Context) {
 		return
 	}
 	user := models.User{
-		Name:     requestBody.Email,
+		Name:     requestBody.Name,
 		Email:    requestBody.Email,
 		Password: string(encryptedPassword),
 	}

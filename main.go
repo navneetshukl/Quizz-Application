@@ -16,7 +16,7 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	
+
 	//? Apply CORS middleware
 
 	config := cors.DefaultConfig()
@@ -31,6 +31,7 @@ func main() {
 	router.POST("/add/question", middleware.Authenticate, routes.AddQuestionRoute)
 
 	router.GET("/quizz/:cat", middleware.Authenticate, routes.GetQuestionsRoute)
+	router.POST("quizz/mail", middleware.Authenticate, routes.SendMailRoute)
 
 	router.Run()
 
