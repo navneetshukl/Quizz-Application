@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/navneetshukl/database"
 	"github.com/navneetshukl/helpers"
 	"github.com/navneetshukl/models"
 	"github.com/navneetshukl/services"
@@ -126,6 +127,48 @@ func SendMailRoute(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"success": "Mail sent successfully",
+	})
+
+}
+
+// ! GetDetailsRoute function will get the details of user for every test
+func GetDetailsRoute(c *gin.Context) {
+
+	email, ok := c.Get("user")
+	if !ok {
+		log.Println("Unable to get the user's email ")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Some error occured.Please retry",
+		})
+		return
+	}
+
+	
+	DB, err := database.ConnectToDatabase()
+	if err != nil {
+		log.Println("Error in connecting to database ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Some error occured.Please retry",
+		})
+
+		return
+	}
+
+	data := []models.Score{}
+	//DB.Select("total","subject","maximum")
+
+	result := DB.Where("email=?", email.(string)).Select("total", "subject", "maximum").Find(&data)
+
+	if result.Error != nil {
+		log.Println("Error in getting the users data from database")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Some Error Occured.Please retry",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": data,
 	})
 
 }

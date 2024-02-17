@@ -32,6 +32,7 @@ func main() {
 
 	router.GET("/quizz/:cat", middleware.Authenticate, routes.GetQuestionsRoute)
 	router.POST("quizz/mail", middleware.Authenticate, routes.SendMailRoute)
+	router.GET("/user/detail", middleware.Authenticate, routes.GetDetailsRoute)
 
 	router.Run()
 
