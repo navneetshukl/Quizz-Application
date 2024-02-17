@@ -157,7 +157,7 @@ func GetDetailsRoute(c *gin.Context) {
 	data := []models.Score{}
 	//DB.Select("total","subject","maximum")
 
-	result := DB.Where("email=?", email.(string)).Select("total", "subject", "maximum").Find(&data)
+	result := DB.Where("email=?", email.(string)).Select("total", "subject", "maximum","CreatedAt").Find(&data)
 
 	if result.Error != nil {
 		log.Println("Error in getting the users data from database")
